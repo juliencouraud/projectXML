@@ -6,3 +6,4 @@ Technologies:
   - JSP / JSTL
   - JavaScript / JQuery / Ajax
   - Stockage XML
+  - Interface Bootstrap / DataTables
