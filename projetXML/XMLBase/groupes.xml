@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<groupes>
+	<groupe>
+		<id>0</id>
+		<intitule>Pas de groupe</intitule>
+	</groupe>
+	<groupe>
+		<id>1</id>
+		<intitule>Pro</intitule>
+	</groupe>
+	<groupe>
+		<id>2</id>
+		<intitule>Famille</intitule>
+	</groupe>
+		<groupe>
+		<id>3</id>
+		<intitule>Amis</intitule>
+	</groupe>
+		<groupe>
+		<id>4</id>
+		<intitule>Projet XML</intitule>
+	</groupe>
+</groupes>

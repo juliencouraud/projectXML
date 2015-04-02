@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<annuaire>
+	<contact>
+		<id>1</id>
+		<nom>Couraud</nom>
+		<prenom>Julien</prenom>
+		<mail>couraud.julien@gmail.com</mail>
+		<mdp>julien</mdp>
+	</contact>
+	<contact>
+		<id>2</id>
+		<nom>Mathieu</nom>
+		<prenom>Mireille</prenom>
+		<mail>mathieu.mireille@gmail.com</mail>
+		<mdp>mireille</mdp>
+	</contact>
+	<contact>
+		<id>3</id>
+		<nom>Luther-King</nom>
+		<prenom>Martin</prenom>
+		<mail>lutherking.martin@gmail.com</mail>
+		<mdp>martin</mdp>
+	</contact>
+	<contact>
+		<id>4</id>
+		<nom>Chan</nom>
+		<prenom>Jacky</prenom>
+		<mail>chan.jacky@gmail.com</mail>
+		<mdp>jacky</mdp>
+	</contact>
+</annuaire>
