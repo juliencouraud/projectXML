@@ -2,6 +2,7 @@
 
 
 Technologies:
-  -Java J2E (Servlets, Service)
-  -JSP / JSTL
-  -JavaScript / JQuery / Ajax
+  - Java J2E (Servlets, Service)
+  - JSP / JSTL
+  - JavaScript / JQuery / Ajax
+  - Stockage XML
