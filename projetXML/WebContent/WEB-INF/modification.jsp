@@ -5,8 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Projet XML</title>
-<%@include file="css/header2.jsp" %>
-<link href="main.css" rel="stylesheet" type="text/css">
+<%@include file="/css/header2.jsp" %>
 </head>
 <body>
 	<div class="page-header titre">

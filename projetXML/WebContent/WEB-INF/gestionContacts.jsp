@@ -9,9 +9,10 @@
 <html>
 <head>
 
-<%@include file="css/header2.jsp"%>
-<link href="css/main.css" rel="stylesheet" type="text/css">
-<link href="//cdn.datatables.net/1.10.5/css/jquery.dataTables.css" rel="stylesheet" type="text/css">
+<%@include file="/css/header2.jsp" %>
+<style type="text/css">
+    <%@include file="/css/jquery.dataTables.css" %>
+</style>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <jsp:useBean id="utilisateur" scope="request" class="model.Utilisateur"></jsp:useBean>
@@ -163,9 +164,12 @@
 		</div>
 	</div>
 	
-<script src="//code.jquery.com/jquery-1.11.1.min.js" language="javascript" type="text/javascript"></script>
-<script src="//cdn.datatables.net/1.10.5/js/jquery.dataTables.min.js" language="javascript" type="text/javascript"></script>
-<script src="//cdn.datatables.net/plug-ins/f2c75b7247b/integration/bootstrap/3/dataTables.bootstrap.js" language="javascript" type="text/javascript"></script>
+
+<script src="/projetXML/js/jquery-1.11.1.min.js" language="javascript" type="text/javascript"></script>
+<script src="/projetXML/js/jquery.dataTables.min.js"></script>
+<script src="/projetXML/js/dataTables.bootstrap.js"></script>
+
+
 <script>
 $(document).ready(function() {
     var table = $('#contacts').DataTable(

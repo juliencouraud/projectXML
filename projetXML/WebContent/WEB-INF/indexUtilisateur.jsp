@@ -2,16 +2,16 @@
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="model.*"%>
 
 <html>
 <head>
 
-<%@include file="css/header2.jsp" %>
-<link href="//cdn.datatables.net/1.10.5/css/jquery.dataTables.css" rel="stylesheet" type="text/css">
-
+<%@include file="/css/header2.jsp" %>
+<style type="text/css">
+    <%@include file="/css/jquery.dataTables.css" %>
+</style>
 
 <meta content="text/html; charset=utf-8" http-equiv="content-type">
 <jsp:useBean id="utilisateur" scope="request" class="model.Utilisateur"></jsp:useBean>
@@ -69,18 +69,10 @@
 	</div>
 </div>
 
+<script src="/projetXML/js/jquery-1.11.1.min.js" language="javascript" type="text/javascript"></script>
+<script src="/projetXML/js/jquery.dataTables.min.js"></script>
+<script src="/projetXML/js/dataTables.bootstrap.js"></script>
 
-<script src="//code.jquery.com/jquery-1.11.1.min.js" language="javascript" type="text/javascript"></script>
-
-<script src="//cdn.datatables.net/1.10.5/js/jquery.dataTables.min.js" language="javascript" type="text/javascript"></script>
-<script src="//cdn.datatables.net/plug-ins/f2c75b7247b/integration/bootstrap/3/dataTables.bootstrap.js" language="javascript" type="text/javascript"></script>
-
-  <!--
-<script src="/WebContent/WEB-INF/extensions/jquery-1.11.1.min.js" language="javascript" type="text/javascript"></script>
-
-<script src="extensions/jquery.dataTablesSupprimer.min.js"></script>
-<script src="extensions/dataTables.bootstrap.js"></script>
--->
 <script>
 $(document).ready(function() {
     $('#contacts').DataTable(
