@@ -1,0 +1,16 @@
+127.0.0.1 - - [22/Mar/2015:12:51:47 +0100] "GET / HTTP/1.1" 404 962
+127.0.0.1 - - [22/Mar/2015:12:51:55 +0100] "GET /projetXML/ HTTP/1.1" 404 982
+127.0.0.1 - - [22/Mar/2015:12:51:57 +0100] "GET /favicon.ico HTTP/1.1" 404 984
+127.0.0.1 - - [22/Mar/2015:12:51:57 +0100] "GET /favicon.ico HTTP/1.1" 404 984
+127.0.0.1 - - [22/Mar/2015:12:52:06 +0100] "GET /projetXML/Index HTTP/1.1" 200 423
+127.0.0.1 - - [22/Mar/2015:12:52:10 +0100] "GET /projetXML/Connection HTTP/1.1" 200 453
+127.0.0.1 - - [22/Mar/2015:12:52:15 +0100] "POST /projetXML/Connection HTTP/1.1" 200 777
+127.0.0.1 - - [22/Mar/2015:15:29:15 +0100] "GET / HTTP/1.1" 404 962
+127.0.0.1 - - [22/Mar/2015:15:30:28 +0100] "GET / HTTP/1.1" 404 962
+127.0.0.1 - - [22/Mar/2015:15:30:52 +0100] "GET /projetXML/Index HTTP/1.1" 200 423
+127.0.0.1 - - [22/Mar/2015:15:30:53 +0100] "GET /projetXML/Inscription HTTP/1.1" 200 542
+127.0.0.1 - - [22/Mar/2015:15:31:04 +0100] "POST /projetXML/Inscription HTTP/1.1" 500 1464
+127.0.0.1 - - [22/Mar/2015:15:44:41 +0100] "GET / HTTP/1.1" 404 962
+127.0.0.1 - - [22/Mar/2015:15:45:04 +0100] "GET /projetXML/Index HTTP/1.1" 200 423
+127.0.0.1 - - [22/Mar/2015:15:45:07 +0100] "GET /projetXML/Inscription HTTP/1.1" 200 542
+127.0.0.1 - - [22/Mar/2015:15:45:20 +0100] "POST /projetXML/Inscription HTTP/1.1" 200 552

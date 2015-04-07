@@ -1,0 +1,362 @@
+package model;
+
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
+import java.io.IOException;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.xml.sax.SAXException;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
+import service.Service;
+
+public class Model {
+
+    private static volatile Model instance = new Model();
+	private static String path;
+	private static List<Utilisateur> model;
+	private static ListeGroupes groupes;
+
+ private Model() {
+		// this.path = path;
+		this.model = new ArrayList<Utilisateur>();
+		this.groupes = new ListeGroupes();
+		// this.initModel();
+		// this.sauvegardeModel();
+	}
+
+    public final static Model getInstance() {
+        if (Model.instance == null) {
+            synchronized(Service.class) {
+                if (Model.instance == null) {
+                	Model.instance = new Model();
+                }
+            }
+        }
+        return Model.instance;
+    }
+	
+	public static String getPath() {
+		return path;
+	}
+	
+	public ListeGroupes getGroupes(){
+		return groupes;
+	}
+
+	public static void setPath(String path) {
+		Model.path = path;
+	}
+
+	public List<Utilisateur> getModel() {
+		return model;
+	}
+	
+	public void setModel(ArrayList<Utilisateur> model) {
+		this.model = model;
+	}
+
+	public int checkConnection(String mail, String mdp) {
+		for (Utilisateur u : (List<Utilisateur>) model) {
+			if (u.getMail().equals(mail)) {
+				if (u.getMdp().equals(mdp)) {
+					return u.getID();
+				}
+			}
+		}
+		return 0;
+	}
+
+	public int checkInscription(String mail) {
+		for (Utilisateur u : (List<Utilisateur>) model) {
+			if (u.getMail().equals(mail)) {
+				return 0;
+			}
+		}
+		return model.size() + 1;
+	}
+
+	public static void initModel(String path) {
+		Model.path = path;
+		chargerGroupes();
+		chargerAnnuaire();
+		chargerLiensContacts();
+	}
+	
+	/*public void refreshModel(){
+		this.model = new ArrayList<Utilisateur>();
+		this.groupes = new ArrayList<String>();
+		this.initModel();
+	}*/
+
+	private static void chargerGroupes() {
+		final DocumentBuilderFactory factory = DocumentBuilderFactory
+				.newInstance();
+		try {
+			final DocumentBuilder builder = factory.newDocumentBuilder();
+			final File file = new File(path + "groupes.xml");
+			final Document document = builder.parse(file);
+			final Element racine = document.getDocumentElement();
+			final NodeList racineNoeuds = racine.getChildNodes();
+			final int nbRacineNoeuds = racineNoeuds.getLength();
+			for (int i = 0; i < nbRacineNoeuds; i++) {
+				if (racineNoeuds.item(i).getNodeType() == Node.ELEMENT_NODE) {
+					final Element groupe = (Element) racineNoeuds.item(i);
+					final Element elemIntitule = (Element) groupe
+							.getElementsByTagName("intitule").item(0);
+					String intitule = elemIntitule.getTextContent();
+					groupes.getListeGroupes().add(intitule);
+				}
+			}
+
+		} catch (final ParserConfigurationException e) {
+			e.printStackTrace();
+		} catch (final SAXException e) {
+			e.printStackTrace();
+		} catch (final IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	private static void chargerAnnuaire() {
+		final DocumentBuilderFactory factory = DocumentBuilderFactory
+				.newInstance();
+		try {
+			final DocumentBuilder builder = factory.newDocumentBuilder();
+			final File file = new File(path + "annuaire.xml");
+			final Document document = builder.parse(file);
+			final Element racine = document.getDocumentElement();
+			final NodeList racineNoeuds = racine.getChildNodes();
+			final int nbRacineNoeuds = racineNoeuds.getLength();
+			for (int i = 0; i < nbRacineNoeuds; i++) {
+				if (racineNoeuds.item(i).getNodeType() == Node.ELEMENT_NODE) {
+					final Element contact = (Element) racineNoeuds.item(i);
+					final Element elemId = (Element) contact
+							.getElementsByTagName("id").item(0);
+					int id = Integer.parseInt(elemId.getTextContent());
+					final Element elemNom = (Element) contact
+							.getElementsByTagName("nom").item(0);
+					String nom = elemNom.getTextContent();
+					final Element elemPrenom = (Element) contact
+							.getElementsByTagName("prenom").item(0);
+					String prenom = elemPrenom.getTextContent();
+					final Element elemMail = (Element) contact
+							.getElementsByTagName("mail").item(0);
+					String mail = elemMail.getTextContent();
+					final Element elemMdp = (Element) contact
+							.getElementsByTagName("mdp").item(0);
+					String mdp = elemMdp.getTextContent();
+					model.add(new Utilisateur(id, nom, prenom, mail, mdp));
+				}
+			}
+
+		} catch (final ParserConfigurationException e) {
+			e.printStackTrace();
+		} catch (final SAXException e) {
+			e.printStackTrace();
+		} catch (final IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	private static void chargerLiensContacts() {
+		final DocumentBuilderFactory factory = DocumentBuilderFactory
+				.newInstance();
+		try {
+			final DocumentBuilder builder = factory.newDocumentBuilder();
+			final File file = new File(path + "liensContacts.xml");
+			final Document document = builder.parse(file);
+			final Element racine = document.getDocumentElement();
+			final NodeList racineNoeuds = racine.getChildNodes();
+			final int nbRacineNoeuds = racineNoeuds.getLength();
+			for (int i = 0; i < nbRacineNoeuds; i++) {
+				if (racineNoeuds.item(i).getNodeType() == Node.ELEMENT_NODE) {
+					final Element contact = (Element) racineNoeuds.item(i);
+					final Element elemId = (Element) contact
+							.getElementsByTagName("id").item(0);
+					int idContact = Integer.parseInt(elemId.getTextContent());
+					model.get(idContact - 1).setListeContacts(
+							new ListeContacts());
+
+					final NodeList infos = contact.getElementsByTagName("info");
+					final int nbInfosElements = infos.getLength();
+					int idLien = 0;
+					for (int j = 0; j < nbInfosElements; j++) {
+						final Element info = (Element) infos.item(j);
+						String type = info.getAttribute("type");
+						int valeur = Integer.parseInt(info.getTextContent());
+						if (type.equals("idLien")) {
+							idLien = valeur;
+							Contact c = new Contact();
+							Utilisateur lien = model.get(idLien - 1);
+							c.setId(lien.getID());
+							c.setNom(lien.getNom());
+							c.setPrenom(lien.getPrenom());
+							c.setMail(lien.getMail());
+							model.get(idContact - 1).getListeContacts()
+									.ajouterContact(c);
+						} else if (type.equals("groupeLien")) {
+							String groupe = getGroupeAvecId(valeur);
+							model.get(idContact - 1).getListeContacts()
+									.getContactAvecId(idLien).setGroupe(groupe);
+						}
+					}
+
+				}
+			}
+		} catch (final ParserConfigurationException e) {
+			e.printStackTrace();
+		} catch (final SAXException e) {
+			e.printStackTrace();
+		} catch (final IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private static String getGroupeAvecId(int id) {
+		return groupes.getListeGroupes().get(id);
+	}
+
+	public void sauvegardeModel() {
+		sauvegardeAnnuaire();
+		sauvegardeLiensContacts();
+	}
+
+	private void sauvegardeAnnuaire() {
+		final DocumentBuilderFactory factory = DocumentBuilderFactory
+				.newInstance();
+		try {
+			final DocumentBuilder builder = factory.newDocumentBuilder();
+			final Document document = builder.newDocument();
+			final Element racine = document.createElement("annuaire");
+			document.appendChild(racine);
+
+			for (Utilisateur u : (List<Utilisateur>) model) {
+				final Element contact = document.createElement("contact");
+				racine.appendChild(contact);
+
+				final Element id = document.createElement("id");
+				id.appendChild(document.createTextNode(Integer.toString(u
+						.getID())));
+				final Element nom = document.createElement("nom");
+				nom.appendChild(document.createTextNode(u.getNom()));
+				final Element prenom = document.createElement("prenom");
+				prenom.appendChild(document.createTextNode(u.getPrenom()));
+				final Element mail = document.createElement("mail");
+				mail.appendChild(document.createTextNode(u.getMail()));
+				final Element mdp = document.createElement("mdp");
+				mdp.appendChild(document.createTextNode(u.getMdp()));
+
+				contact.appendChild(id);
+				contact.appendChild(nom);
+				contact.appendChild(prenom);
+				contact.appendChild(mail);
+				contact.appendChild(mdp);
+			}
+
+			final TransformerFactory transformerFactory = TransformerFactory
+					.newInstance();
+			final Transformer transformer = transformerFactory.newTransformer();
+			final DOMSource source = new DOMSource(document);
+			final StreamResult sortie = new StreamResult(new File(path
+					+ "annuaire.xml"));
+
+			transformer.setOutputProperty(OutputKeys.VERSION, "1.0");
+			transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+			transformer.setOutputProperty(OutputKeys.STANDALONE, "yes");
+			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+			transformer.setOutputProperty(
+					"{http://xml.apache.org/xslt}indent-amount", "2");
+			transformer.transform(source, sortie);
+		} catch (final ParserConfigurationException e) {
+			e.printStackTrace();
+		} catch (TransformerConfigurationException e) {
+			e.printStackTrace();
+		} catch (TransformerException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void sauvegardeLiensContacts() {
+		final DocumentBuilderFactory factory = DocumentBuilderFactory
+				.newInstance();
+		try {
+			final DocumentBuilder builder = factory.newDocumentBuilder();
+			final Document document = builder.newDocument();
+			final Element racine = document.createElement("liensContacts");
+			document.appendChild(racine);
+
+			for (Utilisateur u : (List<Utilisateur>) model) {
+				final Element contact = document.createElement("contact");
+				racine.appendChild(contact);
+
+				final Element id = document.createElement("id");
+				id.appendChild(document.createTextNode(Integer.toString(u
+						.getID())));
+				contact.appendChild(id);
+				for (Contact c : u.getListeContacts().getListeContacts()) {
+					final Element lien = document.createElement("lien");
+					final Element idLien = document.createElement("info");
+					idLien.appendChild(document.createTextNode(Integer
+							.toString(c.getId())));
+					idLien.setAttribute("type", "idLien");
+
+					final Element groupeLien = document.createElement("info");
+					groupeLien.appendChild(document
+							.createTextNode(Integer.toString(getIdAvecGroupe(c.getGroupe()))));
+					groupeLien.setAttribute("type", "groupeLien");
+
+					lien.appendChild(idLien);
+					lien.appendChild(groupeLien);
+					contact.appendChild(lien);
+				}
+			}
+			final TransformerFactory transformerFactory = TransformerFactory
+					.newInstance();
+			final Transformer transformer = transformerFactory.newTransformer();
+			final DOMSource source = new DOMSource(document);
+			final StreamResult sortie = new StreamResult(new File(path
+					+ "liensContacts.xml"));
+
+			transformer.setOutputProperty(OutputKeys.VERSION, "1.0");
+			transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+			transformer.setOutputProperty(OutputKeys.STANDALONE, "yes");
+			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+			transformer.setOutputProperty(
+					"{http://xml.apache.org/xslt}indent-amount", "2");
+			transformer.transform(source, sortie);
+		} catch (final ParserConfigurationException e) {
+			e.printStackTrace();
+		} catch (TransformerConfigurationException e) {
+			e.printStackTrace();
+		} catch (TransformerException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private int getIdAvecGroupe(String groupe){
+		for(int i=0;i<groupes.size();i++){
+			if(groupes.get(i).equals(groupe)){
+				return i;
+			}
+		}
+		return 0;
+	}
+
+}

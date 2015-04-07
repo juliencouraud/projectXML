@@ -1,0 +1,264 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="content-type">
+<title>DataTables Bootstrap 3 example</title>
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" type="text/css" rel="stylesheet">
+Recharger la page pour obtenir le code source pour: http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css
+</link>
+<link href="//cdn.datatables.net/plug-ins/f2c75b7247b/integration/bootstrap/3/dataTables.bootstrap.css" type="text/css" rel="stylesheet">
+Recharger la page pour obtenir le code source pour: http://cdn.datatables.net/plug-ins/f2c75b7247b/integration/bootstrap/3/dataTables.bootstrap.css
+</link>
+<script src="//code.jquery.com/jquery-1.10.2.min.js" language="javascript" type="text/javascript">
+Recharger la page pour obtenir le code source pour: http://code.jquery.com/jquery-1.10.2.min.js
+</script>
+<script src="//cdn.datatables.net/1.10.5/js/jquery.dataTables.min.js" language="javascript" type="text/javascript">
+Recharger la page pour obtenir le code source pour: http://cdn.datatables.net/1.10.5/js/jquery.dataTables.min.js
+</script>
+<script src="//cdn.datatables.net/plug-ins/f2c75b7247b/integration/bootstrap/3/dataTables.bootstrap.js" language="javascript" type="text/javascript">
+/*! DataTables Bootstrap 3 integration
+* ©2011-2014 SpryMedia Ltd - datatables.net/license
+*/
+/**
+* DataTables integration for Bootstrap 3. This requires Bootstrap 3 and
+* DataTables 1.10 or newer.
+*
+* This file sets the defaults and adds options to DataTables to style its
+* controls using Bootstrap. See http://datatables.net/manual/styling/bootstrap
+* for further information.
+*/
+(function(window, document, undefined){
+var factory = function( $, DataTable ) {
+"use strict";
+/* Set the defaults for DataTables initialisation */
+$.extend( true, DataTable.defaults, {
+dom:
+"<'row'<'col-sm-6'l><'col-sm-6'f>>" +
+"<'row'<'col-sm-12'tr>>" +
+"<'row'<'col-sm-6'i><'col-sm-6'p>>",
+renderer: 'bootstrap'
+} );
+/* Default class modification */
+$.extend( DataTable.ext.classes, {
+sWrapper: "dataTables_wrapper form-inline dt-bootstrap",
+sFilterInput: "form-control input-sm",
+sLengthSelect: "form-control input-sm"
+} );
+/* Bootstrap paging button renderer */
+DataTable.ext.renderer.pageButton.bootstrap = function ( settings, host, idx, buttons, page, pages ) {
+var api = new DataTable.Api( settings );
+var classes = settings.oClasses;
+var lang = settings.oLanguage.oPaginate;
+var btnDisplay, btnClass;
+var attach = function( container, buttons ) {
+var i, ien, node, button;
+var clickHandler = function ( e ) {
+e.preventDefault();
+if ( !$(e.currentTarget).hasClass('disabled') ) {
+api.page( e.data.action ).draw( false );
+}
+};
+for ( i=0, ien=buttons.length ; i<ien ; i++ ) {
+button = buttons[i];
+if ( $.isArray( button ) ) {
+attach( container, button );
+}
+else {
+btnDisplay = '';
+btnClass = '';
+switch ( button ) {
+case 'ellipsis':
+btnDisplay = '&hellip;';
+btnClass = 'disabled';
+break;
+case 'first':
+btnDisplay = lang.sFirst;
+btnClass = button + (page > 0 ?
+'' : ' disabled');
+break;
+case 'previous':
+btnDisplay = lang.sPrevious;
+btnClass = button + (page > 0 ?
+'' : ' disabled');
+break;
+case 'next':
+btnDisplay = lang.sNext;
+btnClass = button + (page < pages-1 ?
+'' : ' disabled');
+break;
+case 'last':
+btnDisplay = lang.sLast;
+btnClass = button + (page < pages-1 ?
+'' : ' disabled');
+break;
+default:
+btnDisplay = button + 1;
+btnClass = page === button ?
+'active' : '';
+break;
+}
+if ( btnDisplay ) {
+node = $('<li>', {
+'class': classes.sPageButton+' '+btnClass,
+'aria-controls': settings.sTableId,
+'tabindex': settings.iTabIndex,
+'id': idx === 0 && typeof button === 'string' ?
+settings.sTableId +'_'+ button :
+null
+} )
+.append( $('<a>', {
+'href': '#'
+} )
+.html( btnDisplay )
+)
+.appendTo( container );
+settings.oApi._fnBindAction(
+node, {action: button}, clickHandler
+);
+}
+}
+}
+};
+attach(
+$(host).empty().html('<ul class="pagination"/>').children('ul'),
+buttons
+);
+};
+/*
+* TableTools Bootstrap compatibility
+* Required TableTools 2.1+
+*/
+if ( DataTable.TableTools ) {
+// Set the classes that TableTools uses to something suitable for Bootstrap
+$.extend( true, DataTable.TableTools.classes, {
+"container": "DTTT btn-group",
+"buttons": {
+"normal": "btn btn-default",
+"disabled": "disabled"
+},
+"collection": {
+"container": "DTTT_dropdown dropdown-menu",
+"buttons": {
+"normal": "",
+"disabled": "disabled"
+}
+},
+"print": {
+"info": "DTTT_print_info"
+},
+"select": {
+"row": "active"
+}
+} );
+// Have the collection use a bootstrap compatible drop down
+$.extend( true, DataTable.TableTools.DEFAULTS.oTags, {
+"collection": {
+"container": "ul",
+"button": "li",
+"liner": "a"
+}
+} );
+}
+}; // /factory
+// Define as an AMD module if possible
+if ( typeof define === 'function' && define.amd ) {
+define( ['jquery', 'datatables'], factory );
+}
+else if ( typeof exports === 'object' ) {
+// Node/CommonJS
+factory( require('jquery'), require('datatables') );
+}
+else if ( jQuery ) {
+// Otherwise simply initialise as normal, stopping multiple evaluation
+factory( jQuery, jQuery.fn.dataTable );
+}
+})(window, document);
+</script>
+<script charset="utf-8" type="text/javascript">
+$(document).ready(function() {
+$('#example').dataTable();
+} );
+</script>
+
+
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="java.util.*"%>
+<%@ page import="model.*"%>
+<html>
+<head>
+<%@include file="css/static1.jsp"%>
+<link href="main.css" rel="stylesheet" type="text/css">
+
+<jsp:useBean id="utilisateur" scope="request" class="model.Utilisateur"></jsp:useBean>
+</head>
+<body>
+	<div class="page-header">
+		<h1>
+			Profil utilisateur de
+<%
+			out.println(utilisateur.getNom()+" "+utilisateur.getPrenom());
+%>
+		</h1>
+	</div>
+
+	<h2>Carnet de contacts:</h2>
+	<div >
+		<div id="contacts_filter" class="dataTables_filter">
+			<label> Search: <input class="form-control input-sm"
+				type="search" placeholder="" aria-controls="example">
+			</label>
+		</div>
+		<table  id="contacts">
+			<thead>
+				<tr>
+					<th>Prénom</th>
+					<th>Nom</th>
+					<th>Adresse Mail</th>
+					<th>Groupe</th>
+				</tr>
+			</thead>
+			<tbody>
+				<%
+					if(utilisateur.getListeContacts().estVide()){
+						out.println("<tr>");
+						out.println("<td>"+"Aucun"+"</td>");
+						out.println("<td>"+"Aucun"+"</td>");
+						out.println("<td>"+"Aucun"+"</td>");
+						out.println("<td>"+"Aucun"+"</td>");
+						out.println("</tr>");
+					}
+					else{
+						for(Contact c :utilisateur.getListeContacts().getListeContacts()){
+					out.println("<tr>");
+					out.println("<td>"+c.getPrenom()+"</td>");
+					out.println("<td>"+c.getNom()+"</td>");
+					out.println("<td>"+c.getMail()+"</td>");
+					out.println("<td>"+c.getGroupe()+"</td>");
+					out.println("</tr>");
+						}
+					}
+				%>
+			</tbody>
+		</table>
+	</div>
+	<ul>
+		<li><a href="/projetXML/Modification">Modifier mon profil</a></li>
+		<li><a href="/projetXML/gestionContacts">Gérer mes contacts</a></li>
+		<li><a href="/projetXML/Deconnexion">Déconnexion</a>
+	</ul>
+	
+<script src="extensions/jquery-1.11.1.min.js"></script>
+<script src="extensions/jquery.dataTables.min.js"></script>
+<script src="extensions/dataTables.bootstrap.js"></script>
+<script>
+$(document).ready(function() {
+    $('#contacts').DataTable();
+} );
+</script>
+</body>
+</html>

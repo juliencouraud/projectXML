@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<liensContacts>
+  <contact>
+    <id>1</id>
+    <lien>
+      <info type="idLien">9</info>
+      <info type="groupeLien">4</info>
+    </lien>
+    <lien>
+      <info type="idLien">3</info>
+      <info type="groupeLien">0</info>
+    </lien>
+    <lien>
+      <info type="idLien">4</info>
+      <info type="groupeLien">2</info>
+    </lien>
+    <lien>
+      <info type="idLien">10</info>
+      <info type="groupeLien">4</info>
+    </lien>
+    <lien>
+      <info type="idLien">6</info>
+      <info type="groupeLien">2</info>
+    </lien>
+  </contact>
+  <contact>
+    <id>2</id>
+    <lien>
+      <info type="idLien">4</info>
+      <info type="groupeLien">3</info>
+    </lien>
+  </contact>
+  <contact>
+    <id>3</id>
+  </contact>
+  <contact>
+    <id>4</id>
+  </contact>
+  <contact>
+    <id>5</id>
+  </contact>
+  <contact>
+    <id>6</id>
+  </contact>
+  <contact>
+    <id>7</id>
+  </contact>
+  <contact>
+    <id>8</id>
+  </contact>
+  <contact>
+    <id>9</id>
+  </contact>
+  <contact>
+    <id>10</id>
+  </contact>
+</liensContacts>

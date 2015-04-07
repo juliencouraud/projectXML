@@ -1,0 +1,78 @@
+package servlets;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import service.Service;
+import model.Contact;
+import model.ListeContacts;
+import model.Utilisateur;
+
+/**
+ * Servlet implementation class gestionContacts
+ */
+@WebServlet(name = "gestionContacts")
+public class gestionContacts extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public gestionContacts() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+	    Service service = Service.getService();
+	    int idUtilisateur = service.getUtilisateurCourant();
+	    int indiceUtilisateur = idUtilisateur-1;
+	    Utilisateur utilisateur = service.getModel().getModel().get(indiceUtilisateur);
+        
+        ListeGroupes groupes = service.getModel().getGroupes();
+        
+        ListeContacts contacts = new ListeContacts();
+        ListeContacts autres = new ListeContacts();
+        for(Utilisateur u : service.getModel().getModel()){
+        	
+        	if(utilisateur.estContact(u.getID())){
+            	String groupeContact = service.getGroupeContact(u.getID());
+        		Contact c = u.utilisateurToContact(groupeContact);
+        		contacts.ajouterContact(c);
+        	}
+        	else{
+        		String groupeContact = "";
+        		Contact c = u.utilisateurToContact(groupeContact);
+        		autres.ajouterContact(c);
+        	}
+        }
+        
+        
+    	request.setAttribute("groupes", groupes);
+    	request.setAttribute("contacts", contacts);
+    	request.setAttribute("autres", autres);
+		this.getServletContext().getRequestDispatcher("/WEB-INF/gestionContacts.jsp").forward(request, response);
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

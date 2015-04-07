@@ -1,0 +1,7 @@
+INDEX VERSION 1.3+/home/julien/Documents/M1 Miage/S8/XML/ProjetXML/.metadata/.plugins/org.eclipse.wst.jsdt.core/indexes
+3079696696.index
+2047277358.index
+3329974832.index
+1010664676.index
+1656289041.index
+1452459270.index

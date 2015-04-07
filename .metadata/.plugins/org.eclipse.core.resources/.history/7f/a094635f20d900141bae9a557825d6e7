@@ -1,0 +1,116 @@
+package servlets;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import service.Service;
+import model.Contact;
+import model.ListeContacts;
+import model.ListeGroupes;
+import model.Utilisateur;
+
+/**
+ * Servlet implementation class gestionContacts
+ */
+@WebServlet(name = "gestionContacts")
+public class gestionContacts extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public gestionContacts() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		System.out.println("Récupération du service");
+		Service service = Service.getService();
+		HttpSession session = request.getSession();
+		int idUtilisateur = (int) session.getAttribute("idUtilisateur");
+		Utilisateur utilisateur = service.getUtilisateur(idUtilisateur);
+
+		ListeGroupes groupes = service.getModel().getGroupes();
+
+		ListeContacts contacts = new ListeContacts();
+		ListeContacts autres = new ListeContacts();
+		for (Utilisateur u : service.getModel().getModel()) {
+
+			if (utilisateur.estContact(u.getID())) {
+				String groupeContact = service.getGroupeContact(idUtilisateur,
+						u.getID());
+				Contact c = u.utilisateurToContact(groupeContact);
+				System.out.println("Contact: "+c.getNom()+" "+c.getPrenom());
+				contacts.ajouterContact(c);
+			} else {
+				String groupeContact = "";
+				Contact c = u.utilisateurToContact(groupeContact);
+				System.out.println("Autres: "+c.getNom()+" "+c.getPrenom());
+				autres.ajouterContact(c);
+			}
+		}
+
+		request.setAttribute("groupes", groupes);
+		request.setAttribute("contacts", contacts);
+		request.setAttribute("autres", autres);
+		System.out.println("Je passe par là (GET)");
+		this.getServletContext()
+				.getRequestDispatcher("/WEB-INF/gestionContacts.jsp")
+				.forward(request, response);
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		String nom = request.getParameter("nom");
+		String prenom = request.getParameter("prenom");
+		String action = request.getParameter("action");
+		Service service = Service.getService();
+		HttpSession session = request.getSession();
+		int idUtilisateur = (int) session.getAttribute("idUtilisateur");
+		int idContact = service.getIdAvecNomPrenom(nom, prenom);
+		switch (action) {
+		case "modifier":
+			System.out.println("[Modification]Nom: " + nom + ", Prénom: "
+					+ prenom);
+			break;
+		case "ajouter":
+			service.ajouterContactToUtilisateur(idUtilisateur, idContact);
+			System.out.println("[Ajout]Nom: " + nom + ", Prénom: " + prenom);
+			break;
+		case "supprimer":
+			System.out.println("[Suppression]Nom: " + nom + ", Prénom: "
+					+ prenom);
+			break;
+		}
+		System.out.println("Je passe par là (POST)");
+		//this.getServletContext()
+		//		.getRequestDispatcher("/WEB-INF/gestionContacts.jsp")
+		//		.forward(request, response);
+
+	}
+
+}

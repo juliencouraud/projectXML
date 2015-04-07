@@ -1,0 +1,16 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+
+</head>
+<body>
+	<h1>Bienvenue sur le gestionnaire de contacts</h1>
+<ul>
+	<li><a href="/projetXML/Connection">Se connecter</a></li>
+	<li><a href="/projetXML/Inscription">S'inscrire</a></li>
+</ul>
+</body>
+
+</html>

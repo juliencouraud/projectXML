@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" version="3.1">
+  <servlet>
+    <servlet-name>Index</servlet-name>
+    <servlet-class>servlets.Index</servlet-class>
+    <init-param>
+      <param-name>path</param-name>
+      <param-value>/home/julien/Documents/M1 Miage/S8/XML/ProjetXML/projetXML/</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet>
+    <servlet-name>Connection</servlet-name>
+    <servlet-class>servlets.Connection</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>Inscription</servlet-name>
+    <servlet-class>servlets.Inscription</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>indexUtilisateur</servlet-name>
+    <servlet-class>servlets.indexUtilisateur</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>Modification</servlet-name>
+    <servlet-class>servlets.Modification</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>gestionContacts</servlet-name>
+    <servlet-class>servlets.gestionContacts</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Index</servlet-name>
+    <url-pattern>/Index</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Connection</servlet-name>
+    <url-pattern>/Connection</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Inscription</servlet-name>
+    <url-pattern>/Inscription</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>indexUtilisateur</servlet-name>
+    <url-pattern>/indexUtilisateur</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Modification</servlet-name>
+    <url-pattern>/Modification</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>gestionContacts</servlet-name>
+    <url-pattern>/gestionContacts</url-pattern>
+  </servlet-mapping>
+</web-app>

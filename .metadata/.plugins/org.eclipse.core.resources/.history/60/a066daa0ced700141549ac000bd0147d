@@ -1,0 +1,86 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="java.util.*"%>
+<%@ page import="model.*"%>
+
+<html>
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="content-type">
+
+<%@include file="css/static1.jsp"%>
+<jsp:useBean id="utilisateur" scope="request" class="model.Utilisateur"></jsp:useBean>
+
+
+<link href="main.css" rel="stylesheet" type="text/css">
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" type="text/css" rel="stylesheet"></link>
+<link href="//cdn.datatables.net/plug-ins/f2c75b7247b/integration/bootstrap/3/dataTables.bootstrap.css" type="text/css" rel="stylesheet"></link>
+<title>Projet XML</title>
+<script src="//code.jquery.com/jquery-1.10.2.min.js" language="javascript" type="text/javascript"></script>
+<script src="//cdn.datatables.net/1.10.5/js/jquery.dataTables.min.js" language="javascript" type="text/javascript"></script>
+<script src="extensions/dataTables.bootstrap.js" language="javascript" type="text/javascript"></script>
+</head>
+
+<body>
+	<div class="page-header">
+		<h1>
+			Profil utilisateur de
+<%
+			out.println(utilisateur.getNom()+" "+utilisateur.getPrenom());
+%>
+		</h1>
+	</div>
+
+	<h2>Carnet de contacts:</h2>
+	<div >
+		<div id="contacts_filter" class="dataTables_filter">
+		</div>
+		<table  id="contacts" class="container col-sm-12">
+			<thead>
+				<tr>
+					<th>Prénom</th>
+					<th>Nom</th>
+					<th>Adresse Mail</th>
+					<th>Groupe</th>
+				</tr>
+			</thead>
+			<tbody>
+				<%
+					if(utilisateur.getListeContacts().estVide()){
+						out.println("<tr>");
+						out.println("<td>"+"Aucun"+"</td>");
+						out.println("<td>"+"Aucun"+"</td>");
+						out.println("<td>"+"Aucun"+"</td>");
+						out.println("<td>"+"Aucun"+"</td>");
+						out.println("</tr>");
+					}
+					else{
+						for(Contact c :utilisateur.getListeContacts().getListeContacts()){
+					out.println("<tr>");
+					out.println("<td>"+c.getPrenom()+"</td>");
+					out.println("<td>"+c.getNom()+"</td>");
+					out.println("<td>"+c.getMail()+"</td>");
+					out.println("<td>"+c.getGroupe()+"</td>");
+					out.println("</tr>");
+						}
+					}
+				%>
+			</tbody>
+		</table>
+	</div>
+	<ul>
+		<li><a href="/projetXML/Modification">Modifier mon profil</a></li>
+		<li><a href="/projetXML/gestionContacts">Gérer mes contacts</a></li>
+		<li><a href="/projetXML/Deconnexion">Déconnexion</a>
+	</ul>
+	
+<script>
+$(document).ready(function() {
+    $('#contacts').DataTable();
+} );
+</script>
+</body>
+</html>

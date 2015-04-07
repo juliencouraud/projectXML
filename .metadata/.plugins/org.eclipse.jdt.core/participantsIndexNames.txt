@@ -1,0 +1,7 @@
+INDEX VERSION 1.126
+/home/julien/Documents/M1 Miage/S8/XML/ProjetXML/.metadata/.plugins/org.eclipse.jst.jsp.core/jspsearch/2550119708.index
+/projetXML/src
+/home/julien/Documents/M1 Miage/S8/XML/ProjetXML/.metadata/.plugins/org.eclipse.jst.jsp.core/jspsearch/3028496166.index
+/TD4/src
+/home/julien/Documents/M1 Miage/S8/XML/ProjetXML/.metadata/.plugins/org.eclipse.jst.jsp.core/jspsearch/2751529533.index
+/projetXML/src
