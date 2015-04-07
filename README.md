@@ -1,6 +1,7 @@
-###[M1MIAGE] Projet XML et Web-Services [Julien Couraud - Julie Griffault]
+###Master 1 MIAGE Bordeaux Projet XML et Web-Services
+[Julie Griffault - Julien Couraud]
 
-##Récupération de projet:
+##Récupération de projet format zip
 https://github.com/juliencouraud/projectXML/archive/master.zip
 
 ##Fonctionnalités
@@ -8,11 +9,15 @@ https://github.com/juliencouraud/projectXML/archive/master.zip
   - Recherche parmis les contacts de l'utilisateur
   - Ajout/Supression de contacts
   - Gestion de groupes
-  - Deconnexion
+  - Deconnection
 
-##Technologies:
+##Technologies
   - Java J2E (Servlets, Service)
   - JSP / JSTL
   - JavaScript / JQuery / Ajax
   - Stockage XML
   - Interface Bootstrap / DataTables
+
+##Remarque
+Pensez à bien changer le path dans le fichier web.xml au niveau de la servlet Index
+https://github.com/juliencouraud/projectXML/blob/master/projetXML/WebContent/WEB-INF/web.xml
