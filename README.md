@@ -1,7 +1,16 @@
-[M1MIAGE S2] --> Projet XML
+###[M1MIAGE] Projet XML et Web-Services [Julien Couraud - Julie Griffault]
 
+##Récupération de projet:
+https://github.com/juliencouraud/projectXML/archive/master.zip
 
-Technologies:
+##Fonctionnalités
+  - Connection / Inscription
+  - Recherche parmis les contacts de l'utilisateur
+  - Ajout/Supression de contacts
+  - Gestion de groupes
+  - Deconnexion
+
+##Technologies:
   - Java J2E (Servlets, Service)
   - JSP / JSTL
   - JavaScript / JQuery / Ajax
